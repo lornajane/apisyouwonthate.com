@@ -2,7 +2,7 @@
 title: API Design-First vs Code First
 subtitle: 
 date: '2019-10-14'
-coverImage: 
+coverImage: api-design-first-vs-code-first/milk.jpg
 type: blog
 author: Phil Sturgeon
 ---
@@ -19,11 +19,15 @@ One issue here is that "code-first and meh docs later" treats API descriptions l
 
 Writing a bunch of code first, deploying the thing, getting clients onboarded with special hands-on treatment, etc. is a whole lot of work. When this whole phase is done, spending a month writing up documentation which will "only get out of date" can feel like a giant chore, one that most businesses struggle to prioritize so the task just never gets done. 
 
-This was the excuse I heard regularly for why WeWork, a company with ~50 engineers in 2016 managed to build ~30 APIs with zero documentation at any point. The lack of documentation lead to some of the most bonkers time-and-money-wasting I've ever come across, with folks building out [new versions of endpoints and APIs](/blog/api-versioning-has-no-right-way/) because nobody could remember how the code worked. Even reading the code was almost impossible due to API A dynamically returning mushed together chunks of JSON from API B and API C without any serializers involved. 
+This was the excuse I heard regularly for why WeWork, a company with ~50 engineers in 2016 managed to build ~30 APIs with zero documentation at any point. The lack of documentation lead to some of the most bonkers time-and-money-wasting I've ever come across, with folks building out [new versions of endpoints and APIs](/blog/api-versioning-has-no-right-way/) because nobody could remember how the code worked. Even reading the code was almost impossible due to API A dynamically returning mushed together chunks of JSON from API B and API C [without any serializers involved](https://phil.tech/api/2015/05/30/serializing-api-output/). 
 
-"We'll write documentation later" means "We will not write documentation", and by the time you discover you need it, it'll be too late. On the off-chance you are one of the few who get it done quickly, keeping these documents "in sync" with the code is the biggest problem most developers faced. At my talk on this subject at API the Docs, the entire room of ~80-100 people put their hand up when I asked "Who here struggles with keeping code and docs in sync"? 
+"We'll write documentation later" means "We will not write documentation", and by the time you discover you need it, it'll be too late. On the off-chance you are one of the few who get it done quickly, keeping these documents "in sync" with the code is the biggest problem most developers faced. At my talk on this subject at [API the Docs](https://apithedocs.org/amsterdam2019), the entire room of ~80-100 people put their hand up when I asked "Who here struggles with keeping code and docs in sync"? 
 
-There are [a few approaches](/blog/keeping-documentation-honest), but even if you absolutely nail using Dredd or similar tooling to keep things synced up, there is the other rather large problem we've not covered yet: the fact that you built the whole API before giving your customers a chance to play with it. Mocking is too often overlooked, and people waste time and money building out nonsense APIs which don't help their customers, meaning a v2 comes quickly after, and maybe a v3 as a few more clients get involved. Or you [chose to use evolution](/blog/api-evolution-for-rest-http-apis/) and now have really bloated resources because what you initially had and what customers needed is way out of line, but you already have some customers in prod and can't remove things just yet. 🤦🏻‍♂️
+There are [a few approaches](/blog/keeping-documentation-honest), but even if you absolutely nail using [Dredd](https://dredd.org/) or similar tooling to keep things synced up, there is the other rather large problem we've not covered yet: the fact that you built the whole API before giving your customers a chance to play with it. 
+
+[Mocking](https://stoplight.io/mocking/) is too often overlooked, and people waste time and money building out nonsense APIs which don't help their customers. This usually means a v2 comes quickly after the v1, and maybe a v3 is required as a few more clients get involved and give more feedback. This usually means the API was too normalized, leading to the client needing to make 150 HTTP requests to solve their use case, or the resources are giant meaning there is good data hidden amongst 100 fields the user didn't need. 
+
+[Use-case driven APIs](https://medium.com/@__xuorig__/the-tension-between-data-use-case-driven-graphql-apis-8f982198653b) are usually way more useful than data-driven APIs, regardless of the API [paradigm you picked](/blog/picking-the-right-api-paradigm/) for the API build. Let your users share their feedback early, when it's still cheap and easy to change things - not when it's already in production and change gets more complex.
 
 ## Code-First, then Annotate
 
