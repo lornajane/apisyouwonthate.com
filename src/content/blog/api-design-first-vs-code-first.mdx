@@ -1,8 +1,8 @@
 ---
 title: API Design-First vs Code First
-subtitle: 
+subtitle: With API descriptions rising in popularity, the main question I hear folks asking about is "API Design-first" or "code-first". This is a bit of a misleading question because these are not two unique things, there are a few variants. 
 date: '2019-10-14'
-coverImage: api-design-first-vs-code-first/milk.jpg
+coverImage: workflow2.jpeg
 type: blog
 author: Phil Sturgeon
 ---
@@ -78,7 +78,8 @@ public function getUserByName($username, $newparam)
 
 This looks rough to me, but folks defend it with reasoning like: "having the annotations near the code means developers are more likely to keep it up to date". More likely is not definitely.
 
-TODO milk
+![](../../images/posts/api-design-first-vs-code-first/milk.jpg)
+
 
 Using annotations you still need to use one of the approaches to making sure code and descriptions are in sync, but you have to add a build step to export from source code and then run that generated OpenAPI file through Dredd or similar. Or you can just hope that all of your developers remember and "it'll be fine".
 
